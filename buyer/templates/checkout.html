@@ -1,0 +1,27 @@
+<div>CHECKOUT</div>
+
+<div style="padding:50px">
+    YOUR SHOPPING CART
+    {% for cart_item in cart.cart_items.all %}
+    <div style="padding:15px">
+        <div style="display: inline">{{cart_item.item_text}}</div>
+        <div style= "display: inline">{{cart_item.price}}</div>
+        <div style= "display: inline">{{cart_item.total_cart_item_price}}</div>
+    </div>
+    {% endfor %}
+    <div>Total: ${{ cart.total_price }}</div>
+</div>
+<button href="#" id="checkout_btn" class="btn btn-primary">Buy Now</button>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe('{{stripe_public_key}}')
+    const checkout_butt = document.querySelector('#checkout_btn') 
+        checkout_butt.addEventListener('click', event => {
+        stripe.redirectToCheckout({
+            sessionId: '{{session_id}}'
+        }). then(function (result) {
+
+    });
+    })
+</script>

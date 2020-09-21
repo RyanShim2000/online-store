@@ -1,0 +1,35 @@
+<div>HOME PAGE</div>
+<div>
+    {% for item in seller_item_list %}
+        <div style="padding:15px">
+            <div style="display: inline">{{item.item_text}}</div>
+            <div style= "display: inline">{{item.price}}</div>
+            <form style= "display: inline" action='{% url "addItemView" item.id %}'>
+                <input type="submit" name="addToCart" value="Add To Cart"/>
+            </form>
+        </div>
+    {% endfor %}
+</div>
+<div style="padding:50px">
+    YOUR SHOPPING CART
+    {% for cart_item in cart.cart_items.all %}
+    <div style="padding:15px">
+        <div style="display: inline">{{cart_item.item_text}}</div>
+        <div style= "display: inline">{{cart_item.price}}</div>
+        <div style= "display: inline">{{cart_item.total_cart_item_price}}</div>
+        <form style= "display: inline" action='{% url "removeItemView" cart_item.id %}'>
+            <input type="submit" name="removeFromCart" value="Remove From Cart"/>
+        </form>
+    </div>
+    {% endfor %}
+    <div>Total: ${{ cart.total_price }}</div>
+</div>
+
+<div>
+    <form action='{% url "checkoutView" %}'>
+        <input type="submit" name="checkout" value="Proceed To Checkout"/>
+    </form>
+
+</div>
+<a href="/home/logout">Sign Out</a>
+    
